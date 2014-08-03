@@ -25,7 +25,7 @@ module Nexus
 
 			while socket_response = last_socket.gets
 				response = Response.from_json socket_response.chomp
-				yield(response)
+				yield(response) if block_given?
 			end
 
 			last_socket.close
