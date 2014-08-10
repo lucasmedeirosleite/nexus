@@ -5,13 +5,15 @@ module Nexus
 	class Response
 
 		attr_accessor :body
+		attr_accessor :success
 
-		def initialize(body: "")
+		def initialize(body: "", success: true)
 			@body = body
+			@success = success
 		end
 
 		def serialize
-			{ body: body }.to_json
+			{ body: body, success: success }.to_json
 		end
 
 		def self.from_json(json)
