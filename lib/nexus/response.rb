@@ -17,8 +17,9 @@ module Nexus
 		end
 
 		def self.from_json(json)
-			data = JSON.parse(json)
-			Response.new(body: data['body'])
+			data = ActiveSupport::HashWithIndifferentAccess.new(JSON.parse(json))
+			data_body = ActiveSupport::HashWithIndifferentAccess.new(data[:body])
+			Response.new(body: data_body)
 		end
 
 	end
