@@ -1,4 +1,5 @@
 require "json"
+require "activesupport"
 
 module Nexus
 
@@ -23,8 +24,9 @@ module Nexus
 		end
 
 		def self.from_json(json)
-			data = JSON.parse(json)
-			Request.new(controller: data['controller'], action: data['action'], params: data['params'])
+			data = ActiveSupport::HashWithIndifferentAccess.new(JSON.parse(json))
+			params = ActiveSupport::HashWithIndifferentAccess.new(data[:params])
+			Request.new(controller: data[:controller], action: data[:action], params: params)
 		end
 
 	end
