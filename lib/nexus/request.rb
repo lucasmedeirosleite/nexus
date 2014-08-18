@@ -1,5 +1,5 @@
 require "json"
-require "activesupport"
+require 'active_support/all'
 
 module Nexus
 
