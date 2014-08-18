@@ -25,8 +25,12 @@ module Nexus
 
 		def self.from_json(json)
 			data = ActiveSupport::HashWithIndifferentAccess.new(JSON.parse(json))
-			params = ActiveSupport::HashWithIndifferentAccess.new(data[:params])
-			Request.new(controller: data[:controller], action: data[:action], params: params)
+			if data[:params].present? and data[:params].kind_of? Array
+				Request.new(controller: data[:controller], action: data[:action], params: data[:params])
+			else	
+				params = ActiveSupport::HashWithIndifferentAccess.new(data[:params])
+				Request.new(controller: data[:controller], action: data[:action], params: params)	
+			end
 		end
 
 	end

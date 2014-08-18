@@ -19,8 +19,11 @@ module Nexus
 
 		def self.from_json(json)
 			data = ActiveSupport::HashWithIndifferentAccess.new(JSON.parse(json))
-			data_body = ActiveSupport::HashWithIndifferentAccess.new(data[:body])
-			Response.new(body: data_body)
+			if data[:body].kind_of? Array
+				Response.new(body: data[:body])
+			else
+				Response.new(body: ActiveSupport::HashWithIndifferentAccess.new(data[:body]))
+			end
 		end
 
 	end
